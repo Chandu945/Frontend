@@ -9,22 +9,22 @@ const Register = () => {
   const navigate = useNavigate()
   const handlereg = async () => {
     if(data.name.length === 0){
-      updatemsg(<div>Please enter your name</div>)
+      updatemsg(<div className="new2">Please enter your name</div>)
     }else if(data.password.length < 6){
-      updatemsg(<div>Password must be min 6 characters</div>)
+      updatemsg(<div className="new2">Password must be min 6 characters</div>)
     }
     else{
     const formdata = new FormData()
     formdata.append("name", data.name)
     formdata.append("email", data.email)
     formdata.append("password", data.password)
-    const response = await fetch("http://localhost:8080/api/v1/register", {
+    const response = await fetch("https://instaclone-mayv.onrender.com/api/v1/register", {
       method: 'POST',
       body: formdata
     })
     const res = await response.json()
     if (res.status === "failure") {
-      updatemsg(<div>user already exists</div>)
+      updatemsg(<div className="new2">user already exists</div>)
     }
     navigate("/login")
   }
@@ -44,7 +44,7 @@ const Register = () => {
         <input type="password" placeholder="Enter your password" value={data.password} onChange={(e) => { updatereg({ ...data, password: e.target.value }) }} id="password" name="password" className="enter"></input>
         <button className="btn" id="register" onClick={handlereg}>REGISTER</button>
         {msg}
-        <button className="btn" onClick={handle}>Already have an account? Login here</button>
+        <button className="btn" onClick={handle} id="res" >Already have an account? Login here</button>
       </div>
     </div>
   )

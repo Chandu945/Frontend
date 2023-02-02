@@ -6,20 +6,29 @@ import { useNavigate } from "react-router-dom"
 const Form = () => {
     const [data, updatedata] = useState({ author: "", location: "", description: "", imagefile: "" })
     let date =  new Date().toLocaleString().split(",")[0]
+    const [msg , updatemsg] = useState(<div className="new"></div>)
     const navigate = useNavigate()
-    const uploadpost = () => {
+    const uploadpost = async() => {
+        if(data.author.length === 0 || data.location.length===0 || data.description.length === 0 || data.imagefile.length === 0){
+               updatemsg(<div className="new">please give valid details</div>)
+        }else{
         const formData = new FormData()
         formData.append("Author" , data.author)
         formData.append("Location" , data.location)
         formData.append("Description" , data.description)
         formData.append("Imagefile" , data.imagefile)
         formData.append("Date",date)
-        fetch("http://localhost:8080/api/v1/post",{
+        const response = await fetch("https://instaclone-mayv.onrender.com/api/v1/post",{
             method:'POST',
             body:formData
         })
-        navigate("/main")
+        const resp = await response.json()
+        if(resp.message === "Everything is fine"){
+            navigate("/main")
+        }
     }
+        }
+
     const deleteupload = () =>{
         updatedata({ ...data ,author: "", location: "", description: "", imagefile: "" })
     }
@@ -34,9 +43,10 @@ const Form = () => {
             </div>
             <input type="text" placeholder="Description" id="description" value={data.description} onChange={(e) => { updatedata({ ...data, description: e.target.value }) }}></input><br/>
             <div id="clr">
-            <button id="btn" onClick={deleteupload}>CLEAR</button>
-            <button id="btn" onClick={uploadpost}>SUBMIT</button>
+            <button id="bt" onClick={deleteupload} className="design">CLEAR</button>
+            <button id="btn" onClick={uploadpost} className="design">SUBMIT</button>
             </div>
+            {msg}
         </div>
         </div>
     )

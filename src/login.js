@@ -11,15 +11,15 @@ const Login = () =>{
         const formdata = new FormData()
         formdata.append("email", data.email)
         formdata.append("password", data.password)
-        const response = await fetch("http://localhost:8080/api/v1/login", {
+        const response = await fetch("https://instaclone-mayv.onrender.com/api/v1/login", {
           method: 'POST',
           body: formdata
         })
         const resp = await response.json()
         if(resp.status === "failure"){
-            updatemsg(<div>user not exists</div>)
+            updatemsg(<div className="msg2">user not exists</div>)
         }else if(resp.status === "failure2"){
-            updatemsg(<div>Incorrect Password</div>)
+            updatemsg(<div className="msg2">Incorrect Password</div>)
         }else{
             naviagte("/main")
         }
@@ -38,7 +38,7 @@ const handle = () =>{
         <input type="password" placeholder="Enter your password" value={data.password} onChange={(e) => { updatelogin({ ...data, password: e.target.value }) }} id="password" name="password" className="enter"></input>       
         <button className="btn" onClick={handlelogin} id="login">LOGIN</button>
         {msg}
-        <button className="btn" onClick={handle}>Don't have an account? Register</button>
+        <button className="btn" onClick={handle} id="des" >Don't have an account? Register</button>
         </div>
         </section>
     )

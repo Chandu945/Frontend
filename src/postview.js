@@ -5,10 +5,10 @@ import Header from "./header.js"
 function Postview() {
   const [data, updatedata] = useState([])
   useEffect(() => {
-    fetch("http://localhost:8080/api/v1").then((res) => {
+    fetch("https://instaclone-mayv.onrender.com").then((res) => {
       return res.json()
     }).then((data) => {
-      updatedata(data.result)
+      updatedata(data.result.reverse())
     })
   }, [])
   return (

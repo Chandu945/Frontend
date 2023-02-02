@@ -3,12 +3,19 @@ import { Link } from "react-router-dom"
 
 const Main = () =>{
     return(
+        
         <div id="head">
-        <img id = "main" src="./image/istockphoto.jpg" alt="dsh"></img>
+    
+        <div id="inmain">
+        <img id = "main" src="./image/photo-15.avif" alt="dsh"></img>
+        </div>
         <div id="middle">
             <h1 id="clone">Instaclone</h1>
-                <Link  id="start" to="/login">Start</Link>
+            <div id="a">
+             <Link  id="start" to="/login">Start</Link>
+             </div>
         </div>
+        
         </div>
     )
 }
